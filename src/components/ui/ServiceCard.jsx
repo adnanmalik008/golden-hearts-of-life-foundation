@@ -29,12 +29,9 @@ export default function ServiceCard({ service, index }) {
         <h3 className="text-lg sm:text-xl font-semibold text-stone-900 mb-2 sm:mb-3 group-hover:text-gold-600 transition-colors">
           {service.title}
         </h3>
-        <p className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4">
+        <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
           {service.description}
         </p>
-        <span className="inline-block bg-gold-100 text-gold-700 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold">
-          {service.price}
-        </span>
       </div>
     </motion.div>
   );
