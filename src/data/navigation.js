@@ -1,24 +1,26 @@
 export const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/#about' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Events', href: '/events' },
+  { label: 'FAQ', href: '/#faq' },
+  { label: 'Contact', href: '/#contact' },
 ];
 
 export const footerLinks = {
   services: [
-    { label: 'Food & Nutrition', href: '#services' },
-    { label: 'Housing Stabilization', href: '#services' },
-    { label: 'Medical Navigation', href: '#services' },
-    { label: 'Mental Wellness', href: '#services' },
-    { label: 'Case Management', href: '#services' },
+    { label: 'Food & Nutrition', href: '/#services' },
+    { label: 'Housing Stabilization', href: '/#services' },
+    { label: 'Medical Navigation', href: '/#services' },
+    { label: 'Mental Wellness', href: '/#services' },
+    { label: 'Case Management', href: '/#services' },
   ],
   organization: [
-    { label: 'About Us', href: '#about' },
-    { label: 'Our Mission', href: '#about' },
-    { label: 'Partner With Us', href: '#contact' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'About Us', href: '/#about' },
+    { label: 'Our Mission', href: '/#about' },
+    { label: 'Events & News', href: '/events' },
+    { label: 'Partner With Us', href: '/#contact' },
+    { label: 'Contact', href: '/#contact' },
   ],
   crisis: [
     { label: '988 - Crisis Lifeline', href: 'tel:988' },

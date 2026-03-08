@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { navLinks, contactInfo } from '../../data/navigation';
 import Button from '../ui/Button';
 
@@ -54,8 +55,30 @@ const itemVariants = {
 };
 
 export default function MobileMenu({ onClose }) {
+  const location = useLocation();
+  const isOnHomepage = location.pathname === '/';
+
   const handleLinkClick = () => {
     onClose();
+  };
+
+  const renderLink = (link, className) => {
+    const isHashLink = link.href.includes('#');
+
+    if (isHashLink && isOnHomepage) {
+      const hash = link.href.replace('/', '');
+      return (
+        <a href={hash} onClick={handleLinkClick} className={className}>
+          {link.label}
+        </a>
+      );
+    }
+
+    return (
+      <Link to={link.href} onClick={handleLinkClick} className={className}>
+        {link.label}
+      </Link>
+    );
   };
 
   return (
@@ -105,21 +128,28 @@ export default function MobileMenu({ onClose }) {
             <ul className="space-y-1 sm:space-y-2">
               {navLinks.map((link) => (
                 <motion.li key={link.href} variants={itemVariants}>
-                  <a
-                    href={link.href}
-                    onClick={handleLinkClick}
-                    className="block py-3 sm:py-4 px-4 text-lg sm:text-xl font-display font-medium text-stone-800 hover:text-gold-600 hover:bg-gold-50 rounded-xl transition-colors min-h-[44px] flex items-center"
-                  >
-                    {link.label}
-                  </a>
+                  {renderLink(
+                    link,
+                    "block py-3 sm:py-4 px-4 text-lg sm:text-xl font-display font-medium text-stone-800 hover:text-gold-600 hover:bg-gold-50 rounded-xl transition-colors min-h-[44px] flex items-center"
+                  )}
                 </motion.li>
               ))}
             </ul>
 
             <motion.div variants={itemVariants} className="mt-6 space-y-3">
-              <Button href="#contact" className="w-full" onClick={handleLinkClick}>
-                Request Services
-              </Button>
+              {isOnHomepage ? (
+                <Button href="#contact" className="w-full" onClick={handleLinkClick}>
+                  Request Services
+                </Button>
+              ) : (
+                <Link
+                  to="/#contact"
+                  onClick={handleLinkClick}
+                  className="w-full inline-flex items-center justify-center gap-2 font-semibold rounded-full px-6 py-3 text-base bg-gold-500 text-white hover:bg-gold-600 transition-all duration-300"
+                >
+                  Request Services
+                </Link>
+              )}
               <a
                 href="https://www.paypal.com/donate?hosted_button_id=NCBRZBZP3EDZE"
                 target="_blank"

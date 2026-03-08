@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { navLinks } from '../../data/navigation';
 import Button from '../ui/Button';
 import MobileMenu from './MobileMenu';
@@ -8,6 +9,7 @@ import MobileMenu from './MobileMenu';
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +32,36 @@ export default function Navbar() {
     };
   }, [isMobileMenuOpen]);
 
+  const isOnHomepage = location.pathname === '/';
+
+  const renderNavLink = (link, className) => {
+    const isHashLink = link.href.includes('#');
+
+    // Hash links on homepage use native anchor for smooth scroll
+    if (isHashLink && isOnHomepage) {
+      const hash = link.href.replace('/', '');
+      return (
+        <a href={hash} className={className}>
+          {link.label}
+          <span className={`
+            absolute -bottom-1 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300
+            ${isScrolled ? 'bg-gold-500' : 'bg-gold-400'}
+          `} />
+        </a>
+      );
+    }
+
+    return (
+      <Link to={link.href} className={className}>
+        {link.label}
+        <span className={`
+          absolute -bottom-1 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300
+          ${isScrolled ? 'bg-gold-500' : 'bg-gold-400'}
+        `} />
+      </Link>
+    );
+  };
+
   return (
     <>
       <motion.nav
@@ -47,39 +79,40 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Logo - switches based on scroll state */}
-            <a href="#home" className="group">
+            {/* Logo */}
+            <Link to="/" className="group">
               <img
                 src={isScrolled ? "/logo_lightbg.svg" : "/logo_darkbg.svg"}
                 alt="Golden Hearts of Life Foundation"
                 className="h-12 md:h-14 w-auto group-hover:scale-105 transition-transform"
               />
-            </a>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8">
               {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className={`
+                <span key={link.href}>
+                  {renderNavLink(link, `
                     font-medium transition-colors relative group
                     ${isScrolled
                       ? 'text-stone-600 hover:text-gold-600'
                       : 'text-white/90 hover:text-gold-400'
                     }
-                  `}
-                >
-                  {link.label}
-                  <span className={`
-                    absolute -bottom-1 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300
-                    ${isScrolled ? 'bg-gold-500' : 'bg-gold-400'}
-                  `} />
-                </a>
+                  `)}
+                </span>
               ))}
-              <Button href="#contact" size="sm">
-                Request Services
-              </Button>
+              {isOnHomepage ? (
+                <Button href="#contact" size="sm">
+                  Request Services
+                </Button>
+              ) : (
+                <Link
+                  to="/#contact"
+                  className="inline-flex items-center justify-center gap-2 font-semibold rounded-full px-4 py-2 text-sm bg-gold-500 text-white hover:bg-gold-600 transition-all duration-300 shadow-gold hover:-translate-y-0.5"
+                >
+                  Request Services
+                </Link>
+              )}
               <a
                 href="https://www.paypal.com/donate?hosted_button_id=NCBRZBZP3EDZE"
                 target="_blank"

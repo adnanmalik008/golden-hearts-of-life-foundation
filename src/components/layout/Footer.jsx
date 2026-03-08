@@ -1,5 +1,45 @@
 import { MapPin, Phone, Mail, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { footerLinks, contactInfo } from '../../data/navigation';
+
+function FooterLink({ link }) {
+  const isExternal = link.external;
+  const isRoute = link.href.startsWith('/') && !link.href.includes('#');
+
+  if (isExternal) {
+    return (
+      <a
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-stone-400 text-sm hover:text-gold-400 transition-colors inline-flex items-center gap-1"
+      >
+        {link.label}
+        <ExternalLink className="w-3 h-3" />
+      </a>
+    );
+  }
+
+  if (isRoute) {
+    return (
+      <Link
+        to={link.href}
+        className="text-stone-400 text-sm hover:text-gold-400 transition-colors"
+      >
+        {link.label}
+      </Link>
+    );
+  }
+
+  return (
+    <a
+      href={link.href}
+      className="text-stone-400 text-sm hover:text-gold-400 transition-colors"
+    >
+      {link.label}
+    </a>
+  );
+}
 
 export default function Footer() {
   return (
@@ -9,13 +49,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <a href="#home" className="inline-block mb-6">
+            <Link to="/" className="inline-block mb-6">
               <img
                 src="/logo_darkbg.svg"
                 alt="Golden Hearts of Life Foundation"
                 className="h-12 w-auto"
               />
-            </a>
+            </Link>
             <p className="text-stone-400 text-sm leading-relaxed mb-6">
               Serving LA County with wraparound support for adults with disabilities and older adults. We believe in dignity, stability, and connection for all.
             </p>
@@ -45,12 +85,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-stone-400 text-sm hover:text-gold-400 transition-colors"
-                  >
-                    {link.label}
-                  </a>
+                  <FooterLink link={link} />
                 </li>
               ))}
             </ul>
@@ -62,12 +97,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {footerLinks.organization.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-stone-400 text-sm hover:text-gold-400 transition-colors"
-                  >
-                    {link.label}
-                  </a>
+                  <FooterLink link={link} />
                 </li>
               ))}
             </ul>
@@ -79,15 +109,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {footerLinks.crisis.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target={link.external ? '_blank' : undefined}
-                    rel={link.external ? 'noopener noreferrer' : undefined}
-                    className="text-stone-400 text-sm hover:text-gold-400 transition-colors inline-flex items-center gap-1"
-                  >
-                    {link.label}
-                    {link.external && <ExternalLink className="w-3 h-3" />}
-                  </a>
+                  <FooterLink link={link} />
                 </li>
               ))}
             </ul>
