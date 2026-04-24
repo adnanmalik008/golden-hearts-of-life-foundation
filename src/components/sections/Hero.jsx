@@ -142,10 +142,6 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 1 }}
             >
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-sage-400" />
-                <span>501(c)(3) Pending</span>
-              </div>
-              <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-gold-400" />
                 <span>SPA 5 Primary Focus</span>
               </div>

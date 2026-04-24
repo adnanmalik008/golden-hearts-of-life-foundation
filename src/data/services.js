@@ -79,7 +79,7 @@ export const populations = [
 ];
 
 export const impactStats = [
-  { title: 'Los Angeles County', subtitle: 'Service Area', icon: 'MapPin' },
+  { title: 'SPA 5', subtitle: 'Service Area', icon: 'MapPin' },
   { title: '6 Core Programs', subtitle: 'Comprehensive Services', icon: 'BarChart3' },
   { title: 'Adults & Seniors', subtitle: 'Population Focus', icon: 'Users' },
   { title: 'Wraparound Model', subtitle: 'Care Approach', icon: 'Shield' },

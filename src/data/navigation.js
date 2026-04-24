@@ -36,8 +36,6 @@ export const contactInfo = {
 };
 
 export const trustBadges = [
-  { label: 'Service Area', value: 'Los Angeles County' },
-  { label: 'Focus Area', value: 'SPA 5 Primary' },
+  { label: 'Service Area', value: 'SPA 5' },
   { label: 'UEI Number', value: 'SU9ZEL1AL3Z6' },
-  { label: 'Status', value: '501(c)(3) Pending' },
 ];
